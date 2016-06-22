@@ -1,11 +1,15 @@
 public class User implements Comparable
 {
-    private String name;
+    private String name = "";
     private int score;
 
     public User()
+    {}
+
+    public User(String name, int score)
     {
-        this.name = "";
+        this.name = name;
+        this.score = score;
     }
 
     public void setScore(int score)

@@ -21,7 +21,7 @@ public class Records
         this.path = path;
         this.paramReader = new InputStreamReader(getClass().getResourceAsStream(this.path));
         this.users = new User[11];
-        this.buf = new char[300];
+        this.buf = new char[400];
     }
 
     public char[] readFile() throws IOException
@@ -122,9 +122,11 @@ public class Records
     }
     public void addCurrentResults()
     {
-        this.users[count] = new User();
-        this.users[count].setName(curName + " " + "-" + " ");
-        this.users[count].setScore(curScore.getScore());
+        this.users[count] = new User(curName + " " + "-" + " ", curScore.getScore());
+        for(User u : users)
+        {
+            System.out.println(u.getName() + u.getScore());
+        }
     }
 
     public void sortPreviousResultWithCurrent()
