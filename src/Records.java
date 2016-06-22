@@ -5,17 +5,20 @@ import java.util.Arrays;
 public class Records
 {
     private User[] users;
-    private int count, curScore;
+    private CurrentScore curScore;
+    private int count;
     private String curName;
     private String path;
     private File records;
     private Reader paramReader;
     private char[] buf;
 
-    public Records()
+
+    public Records(File records, String path, CurrentScore sc)
     {
-        this.records = new File("src/Records/Records.txt");
-        this.path = "/Records/Records.txt";
+        this.curScore = sc;
+        this.records = records;
+        this.path = path;
         this.paramReader = new InputStreamReader(getClass().getResourceAsStream(this.path));
         this.users = new User[11];
         this.buf = new char[300];
@@ -61,10 +64,9 @@ public class Records
         this.count++;
     }
 
-    public void setCurResult(String curName, int curScore)
+    public void setCurResult(String curName)
     {
         this.curName = curName;
-        this.curScore = curScore;
     }
 
     public void getPreviousRecords()
@@ -122,7 +124,7 @@ public class Records
     {
         this.users[count] = new User();
         this.users[count].setName(curName + " " + "-" + " ");
-        this.users[count].setScore(curScore);
+        this.users[count].setScore(curScore.getScore());
     }
 
     public void sortPreviousResultWithCurrent()

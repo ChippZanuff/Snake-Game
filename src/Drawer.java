@@ -4,44 +4,28 @@ import java.awt.*;
 
 public class Drawer extends JPanel
 {
-    private int dot, score, northWall, westWall, southWall, eastWall;
     private Apple apple;
     private Snake snake;
-    private String stringScore = "Score: 0";
     private TextField field;
+    private CurrentScore curScore;
+    private FieldParam fieldParam;
 
-    public Drawer(Apple a, Snake s, TextField t)
+    public Drawer(Apple a, Snake s, TextField t, CurrentScore sc, FieldParam fp)
     {
-        this.northWall = 0;
-        this.westWall = 230;
-        this.southWall = 0;
-        this.eastWall = 220;
+        this.fieldParam = fp;
+        this.curScore = sc;
         this.setLayout(null);
-        this.setPreferredSize(new Dimension(this.westWall,this.eastWall));
+        this.setPreferredSize(new Dimension(this.fieldParam.getWestWall(),this.fieldParam.getSouthWall()));
         this.apple = a;
         this.snake = s;
         this.field = t;
-        this.dot = 10;
-        this.score = 0;
-
     }
 
     public void getTextField()
     {
         this.add(this.field.getField());
         this.field.getField().requestFocus();
-        this.field.setScore(this.score);
-    }
-
-    public void setScore(int i)
-    {
-        this.score = i;
-        this.stringScore = "Score: " + i;
-    }
-
-    public int getDot()
-    {
-        return this.dot;
+        this.field.setScore(curScore.getScore());
     }
 
     @Override
@@ -54,19 +38,18 @@ public class Drawer extends JPanel
         int smoothing = 100;
 
 
-
-        for(int i = 0; i < this.eastWall; i += this.dot)
+        for(int i = 0; i < this.fieldParam.getSouthWall(); i += this.fieldParam.getDot())
         {
-            g.fillRoundRect(i,this.northWall,this.dot,this.dot,smoothing,smoothing);
+            g.fillRoundRect(i, this.fieldParam.getNorthWall(), this.fieldParam.getDot(), this.fieldParam.getDot(), smoothing,smoothing);
 
-            if(i != this.eastWall - this.dot && i != this.eastWall)
+            if(i != this.fieldParam.getSouthWall() - this.fieldParam.getDot() && i != this.fieldParam.getSouthWall())
             {
-                g.fillRoundRect(0,i,this.dot,this.dot,smoothing,smoothing);
+                g.fillRoundRect(0,i,this.fieldParam.getDot(),this.fieldParam.getDot(),smoothing,smoothing);
             }
-            g.fillRoundRect(i,200,this.dot,this.dot,smoothing,smoothing);
-            if(i != this.eastWall - this.dot && i != this.eastWall)
+            g.fillRoundRect(i,200,this.fieldParam.getDot(),this.fieldParam.getDot(),smoothing,smoothing);
+            if(i != this.fieldParam.getSouthWall() - this.fieldParam.getDot() && i != this.fieldParam.getSouthWall())
             {
-                g.fillRoundRect(this.eastWall,i,this.dot,this.dot,smoothing,smoothing);
+                g.fillRoundRect(this.fieldParam.getSouthWall(),i,this.fieldParam.getDot(),this.fieldParam.getDot(),smoothing,smoothing);
             }
         }
 
@@ -80,7 +63,7 @@ public class Drawer extends JPanel
                     g.setColor(Color.RED);
                 }
             }
-            g.fillRoundRect(point.x,point.y,this.dot,this.dot,smoothing,smoothing);
+            g.fillRoundRect(point.x,point.y,this.fieldParam.getDot(), this.fieldParam.getDot(), smoothing,smoothing);
             g.setColor(Color.PINK);
             a++;
         }
@@ -92,9 +75,9 @@ public class Drawer extends JPanel
         {
             g.setColor(Color.YELLOW);
         }
-        g.fillRoundRect(this.apple.getApple().x, this.apple.getApple().y, this.dot, this.dot,smoothing,smoothing);
+        g.fillRoundRect(this.apple.getApple().x, this.apple.getApple().y, this.fieldParam.getDot(), this.fieldParam.getDot(),smoothing,smoothing);
 
         g.setColor(Color.WHITE);
-        g.drawString(this.stringScore, 0,this.eastWall);
+        g.drawString(this.curScore.getScoreForDrawer(), 0,this.fieldParam.getSouthWall());
     }
 }

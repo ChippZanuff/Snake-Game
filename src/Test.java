@@ -9,9 +9,11 @@ public class Test implements ActionListener
     private Movement moveme;
     private Drawer draw;
     private Snake snake;
-    private int score, delay = 350;
+    private CurrentScore curScore;
+    private FieldParam fieldParam;
+    private int delay = 350;
     private boolean game = true;
-
+    private final int scoreAdd = 9;
 
     private Apple apple;
     private boolean collision = false;
@@ -19,8 +21,10 @@ public class Test implements ActionListener
 
     public Timer time = new Timer(this.delay,this);
 
-    public Test(Movement m, Drawer d, Apple a, Snake s)
+    public Test(Movement m, Drawer d, Apple a, Snake s, CurrentScore sc, FieldParam fp)
     {
+        this.fieldParam = fp;
+        this.curScore = sc;
         this.draw = d;
         this.apple = a;
         this.moveme = m;
@@ -35,7 +39,7 @@ public class Test implements ActionListener
 
         this.appleCreation();
 
-        this.moveme.turnLocation(draw.getDot());
+        this.moveme.turnLocation(this.fieldParam.getDot());
 
         this.draw.repaint();
 
@@ -87,8 +91,7 @@ public class Test implements ActionListener
         {
             this.apple.setAppleOnDesk(false);
             this.snake.setBack();
-            this.score += 9;
-            draw.setScore(this.score);
+            this.curScore.setScore(scoreAdd);
             this.draw.repaint();
             this.time.setDelay(this.setDelay());
         }

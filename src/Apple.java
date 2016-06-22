@@ -5,11 +5,15 @@ public class Apple
 {
     private Point apple;
     private boolean appleOnDesk;
-    private final int mapWidth = 180, mapHeight = 180, border = 20, dot = 10;
+    private int mapWidth, mapHeight, border, dot;
 
-    public Apple()
+    public Apple(int mapWidth, int mapHeight, int border, int dot, Point apple)
     {
-        this.apple = new Point();
+        this.apple = apple;
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
+        this.border = border;
+        this.dot = dot;
         this.appleOnDesk = false;
     }
 

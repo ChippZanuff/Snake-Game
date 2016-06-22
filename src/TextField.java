@@ -40,7 +40,7 @@ public class TextField implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         String name = this.field.getText();
-        this.rec.setCurResult(name, this.score);
+        this.rec.setCurResult(name);
         this.rec.getPreviousRecords();
         this.rec.addCurrentResults();
         this.rec.sortPreviousResultWithCurrent();
