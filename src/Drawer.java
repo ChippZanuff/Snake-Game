@@ -7,13 +7,12 @@ public class Drawer extends JPanel
     private Apple apple;
     private Snake snake;
     private TextField field;
-    private CurrentScore curScore;
     private FieldParam fieldParam;
+    private String currentScore = "Score: 0";
 
-    public Drawer(Apple a, Snake s, TextField t, CurrentScore sc, FieldParam fp)
+    public Drawer(Apple a, Snake s, TextField t, FieldParam fp)
     {
         this.fieldParam = fp;
-        this.curScore = sc;
         this.setLayout(null);
         this.setPreferredSize(new Dimension(this.fieldParam.getWestWall(),this.fieldParam.getSouthWall()));
         this.apple = a;
@@ -21,11 +20,16 @@ public class Drawer extends JPanel
         this.field = t;
     }
 
-    public void getTextField()
+    public void getUsername(User user)
     {
         this.add(this.field.getField());
         this.field.getField().requestFocus();
-        this.field.setScore(curScore.getScore());
+        this.field.setUserName(user);
+    }
+
+    public void setScore(String score)
+    {
+        this.currentScore = score;
     }
 
     @Override
@@ -78,6 +82,6 @@ public class Drawer extends JPanel
         g.fillRoundRect(this.apple.getApple().x, this.apple.getApple().y, this.fieldParam.getDot(), this.fieldParam.getDot(),smoothing,smoothing);
 
         g.setColor(Color.WHITE);
-        g.drawString(this.curScore.getScoreForDrawer(), 0,this.fieldParam.getSouthWall());
+        g.drawString(this.currentScore, this.fieldParam.getEastWall(), this.fieldParam.getSouthWall());
     }
 }

@@ -2,18 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class TextField implements ActionListener
 {
     private String warn;
     private JTextField field;
+    private User user;
     private Records rec;
-    private int score;
 
-    public void setScore(int s)
+    public void setUserName(User user)
     {
-        this.score = s;
+        this.user = user;
     }
 
     public TextField(Records r)
@@ -40,9 +41,10 @@ public class TextField implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         String name = this.field.getText();
-        this.rec.setCurResult(name);
-        this.rec.getPreviousRecords();
-        this.rec.addCurrentResults();
+
+        this.user.setName(name);
+
+        this.rec.readFile();
         this.rec.sortPreviousResultWithCurrent();
         this.rec.showResult();
 

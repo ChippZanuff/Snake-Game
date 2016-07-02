@@ -8,15 +8,15 @@ public class Main
     public static void main(String[] args) throws IOException
     {
         FieldParam fieldParam = new FieldParam();
-        CurrentScore currentScore = new CurrentScore();
         Snake snake = new Snake();
+        User[] user = new User[11];
         Movement move = new  Movement(snake);
         Apple apple = new Apple(180,180,20,10, new Point());
-        Records records = new Records(new File("src/Records/Records.txt"), "/Records/Records.txt",currentScore);
+        Records records = new Records(new File("src/Records/Records.txt"), user);
         TextField textField = new TextField(records);
-        Drawer drawer = new Drawer(apple, snake, textField,currentScore, fieldParam);
+        Drawer drawer = new Drawer(apple, snake, textField, fieldParam);
         JFrame jf = new JFrame();
-        Test t = new Test(move, drawer, apple, snake,currentScore, fieldParam);
+        Test t = new Test(move, drawer, apple, snake, fieldParam, user);
         drawer.setBackground(Color.BLACK);
         t.time.start();
 

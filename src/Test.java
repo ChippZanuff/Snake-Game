@@ -2,18 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 public class Test implements ActionListener
 {
     private Movement moveme;
+    private User[] user;
     private Drawer draw;
     private Snake snake;
-    private CurrentScore curScore;
     private FieldParam fieldParam;
     private int delay = 350;
     private boolean game = true;
-    private final int scoreAdd = 9;
+    private final int scoreAdd = 9, currentUser = 0;
 
     private Apple apple;
     private boolean collision = false;
@@ -21,10 +22,11 @@ public class Test implements ActionListener
 
     public Timer time = new Timer(this.delay,this);
 
-    public Test(Movement m, Drawer d, Apple a, Snake s, CurrentScore sc, FieldParam fp)
+    public Test(Movement m, Drawer d, Apple a, Snake s, FieldParam fp, User[] u)
     {
+        this.user = u;
+        this.user[this.currentUser] = new User();
         this.fieldParam = fp;
-        this.curScore = sc;
         this.draw = d;
         this.apple = a;
         this.moveme = m;
@@ -91,7 +93,8 @@ public class Test implements ActionListener
         {
             this.apple.setAppleOnDesk(false);
             this.snake.setBack();
-            this.curScore.setScore(scoreAdd);
+            this.user[this.currentUser].addScore();
+            this.draw.setScore(this.user[this.currentUser].getScoreForDrawer());
             this.draw.repaint();
             this.time.setDelay(this.setDelay());
         }
@@ -106,7 +109,7 @@ public class Test implements ActionListener
     {
         if(!this.game)
         {
-            draw.getTextField();
+            this.draw.getUsername(user[currentUser]);
         }
     }
 }

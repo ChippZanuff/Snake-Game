@@ -1,7 +1,8 @@
 public class User implements Comparable
 {
     private String name = "";
-    private int score;
+    private int score = 0;
+    private int scoreAdding = 9;
 
     public User()
     {}
@@ -12,9 +13,20 @@ public class User implements Comparable
         this.score = score;
     }
 
-    public void setScore(int score)
+    public User(int scoreAdding, String name)
     {
-        this.score = score;
+        this.name = name;
+        this.scoreAdding = scoreAdding;
+    }
+
+    public void addScore()
+    {
+        this.score += this.scoreAdding;
+    }
+
+    public String getScoreForDrawer()
+    {
+        return "Score: " + this.score;
     }
 
     public void setName(String name)
@@ -33,17 +45,23 @@ public class User implements Comparable
     }
 
     @Override
+    public String toString()
+    {
+        return this.name + " - " + this.score + '\n';
+    }
+
+    @Override
     public int compareTo(Object user)
     {
         User temporary = (User) user;
 
         if(this.score > temporary.getScore())
         {
-            return -1;
+            return 1;
         }
         else if(this.score < temporary.getScore())
         {
-            return 1;
+            return -1;
         }
 
         return 0;
